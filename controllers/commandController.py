@@ -1,11 +1,12 @@
 import json
 from controllers import apiController as api
+from const import PATHS
 
 
 def parse(messageDAO):
 	commandList = messageDAO.content.split()
 	key = commandList[0]
-	commandTree = json.loads(open('cmds/replies.json', encoding='utf-8').read())
+	commandTree = json.loads(open(PATHS.PROCESS_JSON_PATH, encoding='utf-8').read())
 	if key in commandTree.keys():
 		processorKey = commandTree[key]["processor"]
 		del commandTree[key]["processor"]
