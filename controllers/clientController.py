@@ -8,12 +8,13 @@ async def on_message(messageDAO):
     if messageDAO.author == client.user:
         return
 
-    if(commands.isValid(messageDAO.content)):
-        await client.send_message(messageDAO.channel, "iamworking")
-        replyObj = commands.parse(messageDAO)
-    
+    if(commands.validate(messageDAO.content)):
+        msgObj = await client.send_message(messageDAO.channel, "iamworking")
+        replyObj = await commands.parse(messageDAO)   
+        
         if replyObj != None:  
             await client.send_message(messageDAO.channel, replyObj)
+            await client.delete_message(msgObj)
 
 
 @client.event   
