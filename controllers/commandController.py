@@ -2,25 +2,28 @@ import json
 from controllers import apiController as api
 from const import PATHS
 
+def validate(messageStr):
+	global commandList, key, commandTree, isValid
 
-def parse(messageDAO):
-	commandList = messageDAO.content.split()
+	commandList = messageStr.split()
 	key = commandList[0]
 	commandTree = json.loads(open(PATHS.PROCESS_JSON_PATH, encoding='utf-8').read())
-	if key in commandTree.keys():
-		processorKey = commandTree[key]["processor"]
-		del commandTree[key]["processor"]
-		subKey = "default" if len(commandList)<2  else commandList[1]
-		return processor(processorKey,commandTree[key],subKey,messageDAO)
-	else:
-		return None
+	isValid = True if key in commandTree.keys() else False
+	
+	return isValid
+
+async def parse(messageDAO):
+	processorKey = commandTree[key]["processor"]
+	del commandTree[key]["processor"]
+	subKey = "default" if len(commandList)<2  else commandList[1]
+	return processor(processorKey,commandTree[key],subKey,messageDAO)
 
 def processor(processorKey, tree, treeKey, messageDAO):
 	if treeKey in tree.keys():
 		if processorKey == "plain":
 			return replaceKeys(tree[treeKey],messageDAO)
 		elif processorKey == "api":
-		 	return api.process(tree,treeKey) 
+		 	return api.process(tree,treeKey,messageDAO) 
 		else:
 		 	return "undefined"
 	else:

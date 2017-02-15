@@ -7,9 +7,13 @@ client = Client()
 async def on_message(messageDAO):
     if messageDAO.author == client.user:
         return
-    replyObj = commands.parse(messageDAO)
-    if replyObj != None:      
-        await client.send_message(messageDAO.channel, replyObj)
+
+    if(commands.isValid(messageDAO.content)):
+        await client.send_message(messageDAO.channel, "iamworking")
+        replyObj = commands.parse(messageDAO)
+    
+        if replyObj != None:  
+            await client.send_message(messageDAO.channel, replyObj)
 
 
 @client.event   
