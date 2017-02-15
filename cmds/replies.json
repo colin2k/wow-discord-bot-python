@@ -1,0 +1,20 @@
+{
+	"!bot": {
+		"processor":"plain",
+		"default":"hello, @user@",
+		"joke":"hello1, @user@",
+		"2":"hello2, @user@",
+		"3":"hello3, @user@",
+		"4":"hello4, @user@",
+		"5":"hello5, @user@"
+	},
+	"call":{
+		"processor":"api",
+		"default": "api - default",
+		"api1": "api - testCall1",
+		"api2": "api - testCall2"
+	},
+	"traits":{
+
+	}
+}
