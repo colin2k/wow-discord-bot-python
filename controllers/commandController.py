@@ -1,5 +1,5 @@
 import json
-from controllers import apiController as api
+from controllers import piController as pi
 from controllers import infoController as info
 from const import PATHS
 
@@ -25,12 +25,12 @@ def processor(botParameter, commandTree, messageDAO):
 			return info.joke()
 		elif commandKey == "giphy":
 			return info.giphy(botParameter)
-		elif commandKey == "api":
-		 	return api.process(botParameter) 
+		elif commandKey == "cmd":
+		 	return pi.process(botParameter) 
 		else:
 		 	return howTo()
 	else:
 		return howTo()
 
 def howTo():
-	return "usage:\n"
+	return "usage:\nhelp  -  to view this\nhello  -  to say hello :)\njoke  -  telling a joke (mostly chuck norris related) "
